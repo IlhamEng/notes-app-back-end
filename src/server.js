@@ -1,23 +1,23 @@
-/* eslint-disable linebreak-style */
-/* eslint-disable indent */
 const Hapi = require('@hapi/hapi');
 const notes = require('./api/notes');
 const NotesService = require('./services/inMemory/NotesService');
+const NotesValidator = require('./validator/notes');
 
 const init = async () => {
-   const notesService = new NotesService();
+  const notesService = new NotesService();
   const server = Hapi.server({
     port: 5000,
     host: process.env.NODE_ENV !== 'production' ? 'localhost' : '0.0.0.0',
     routes: {
-        cors: {
-          origin: ['*'],
-        },
+      cors: {
+        origin: ['*'],
       },
+    },
   });
-    await server.register({
+  await server.register({
     plugin: notes,
     options: {
+      validator: NotesValidator,
       service: notesService,
     },
   });
