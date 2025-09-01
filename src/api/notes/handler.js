@@ -1,4 +1,5 @@
 /* eslint-disable no-underscore-dangle */
+const ClientError = require('../../exceptions/ClientError');
 class NotesHandler {
   constructor(service, validator) {
     this._service = service;
@@ -37,7 +38,7 @@ class NotesHandler {
         return response;
       }
 
-// Server ERROR!
+      // Server ERROR!
       const response = h.response({
         status: 'error',
         message: 'Maaf, terjadi kegagalan pada server kami.',
@@ -93,9 +94,9 @@ class NotesHandler {
     try {
       this._validator.validateNotePayload(request.payload);
       const { id } = request.params;
-
+ 
       this._service.editNoteById(id, request.payload);
-
+ 
       return {
         status: 'success',
         message: 'Catatan berhasil diperbarui',
@@ -120,16 +121,17 @@ class NotesHandler {
       return response;
     }
   }
-
+ 
   deleteNoteByIdHandler(request, h) {
     try {
       const { id } = request.params;
       this._service.deleteNoteById(id);
+ 
       return {
         status: 'success',
         message: 'Catatan berhasil dihapus',
       };
-    }  catch (error) {
+    } catch (error) {
       if (error instanceof ClientError) {
         const response = h.response({
           status: 'fail',
@@ -150,5 +152,5 @@ class NotesHandler {
     }
   }
 }
-
+ 
 module.exports = NotesHandler;
