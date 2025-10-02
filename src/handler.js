@@ -1,3 +1,4 @@
+/* eslint-disable no-underscore-dangle */
 class NotesHandler {
   constructor(service, validator) {
     this._service = service;
@@ -37,7 +38,7 @@ class NotesHandler {
     };
   }
 
-  async getNoteByIdHandler(request, h) {
+  async getNoteByIdHandler(request) {
     const { id } = request.params;
     const note = await this._service.getNoteById(id);
     return {
@@ -48,7 +49,7 @@ class NotesHandler {
     };
   }
 
-  async putNoteByIdHandler(request, h) {
+  async putNoteByIdHandler(request) {
     this._validator.validateNotePayload(request.payload);
     const { id } = request.params;
 
@@ -60,7 +61,7 @@ class NotesHandler {
     };
   }
 
-  async deleteNoteByIdHandler(request, h) {
+  async deleteNoteByIdHandler(request) {
     const { id } = request.params;
     await this._service.deleteNoteById(id);
 
