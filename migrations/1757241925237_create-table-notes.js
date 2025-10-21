@@ -8,7 +8,7 @@ exports.shorthands = undefined;
  * @param run {() => void | undefined}
  * @returns {Promise<void> | void}
  */
-exports.up = pgm => {
+exports.up = (pgm) => {
   pgm.createTable('notes', {
     id: {
       type: 'VARCHAR(50)',
@@ -42,5 +42,5 @@ exports.up = pgm => {
  * @returns {Promise<void> | void}
  */
 exports.down = (pgm) => {
-    pgm.dropTable('notes');
+  pgm.dropTable('notes');
 };
